@@ -1,0 +1,163 @@
+
+.MODEL small
+.STACK 100h
+
+
+.DATA
+
+msg1 db 13,10,'1 for ukraine 2 for poland 3 indonesia 0 to exit','$' 
+ 
+     
+.CODE
+squre1 proc
+    
+
+push ax ;+0
+
+    mov bp,sp 
+    
+    
+          
+    mov cx, 100
+    mov dx, 20
+    mov ax,[bp+4]
+    mov ah,0ch
+
+
+
+draw1:
+    int 10h
+
+    inc cx
+    
+    cmp cx, 125   
+    jle draw1
+    
+    inc dx
+    mov cx, 100
+    
+    cmp dx, 30
+    jle draw1
+    
+        
+    
+pop ax
+    
+ret 2   
+squre1 endp
+
+squre2 proc
+    
+
+push ax
+
+    mov bp,sp 
+    
+    
+          
+    mov cx, 100
+    mov dx, 31
+    mov ax,[bp+4]
+    mov ah,0ch
+
+
+
+draw:
+    int 10h
+
+    inc cx
+    
+    cmp cx, 125   
+    jle draw
+    
+    inc dx
+    mov cx, 100
+    
+    cmp dx, 40
+    jle draw
+    
+        
+    
+pop ax
+    
+ret 2    
+squre2 endp
+  
+
+
+start:
+	mov ax, @data
+    mov ds, ax 
+
+question:	
+	lea dx,msg1
+    mov ah,09h
+    int 21h
+	mov ah, 1
+    int 21h
+    cmp al,'1'
+    je ukraine
+    cmp al,'2'
+    je poland
+    cmp al,'3'
+    je indonesia
+    cmp al,'0'
+    je exit
+    jmp question 
+    
+	
+ukraine:
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 9h 
+	call squre1
+	
+	push 0Eh
+	call squre2
+	mov ah, 0   
+	mov al, 03h 
+	int 10h  
+	jmp question
+indonesia:
+    mov ah, 0   
+	mov al, 13h
+	int 10h    
+	
+      
+	push 0ch 
+	call squre1
+	
+	push 0fh
+	call squre2
+	mov ah, 0   
+	mov al, 03h 
+	int 10h  
+	jmp question	
+poland:
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 0fh 
+	call squre1
+	
+	push 0ch
+	call squre2
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+
+exit:
+		
+
+  mov AH,4CH
+  int 21h
+
+END start
+
+ret
