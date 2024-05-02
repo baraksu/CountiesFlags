@@ -5,9 +5,18 @@
 
 .DATA
 
-msg1 db 13,10,'1 for ukraine 2 for poland 3 indonesia 0 to exit','$' 
- 
-     
+msg1 db 13,10,' 1 for ukraine','$',13,10 
+msg2 db 13,10,' 2 for poland','$',13,10   
+msg3 db 13,10,' 3 indonesia','$',13,10  
+msg4 db 13,10,' 0 to exit','$',13,10
+msg5 db 13,10,10,10,10,10,10,10,10,10,10,' press any key to go to the main menu','$' 
+
+msg11 db 13,10,'  ________ ___| |____ ____ _______ ','$',13,10
+msg12 db 13,10,' |.  ___  |_  |____  |__  |____   |','$',13,10
+msg13 db 13,10,'  | |   | | |_|   / /   | |    | | ','$',13,10
+msg14 db 13,10,'  | |___| |      / /____| |    | | ','$',13,10
+msg15 db 13,10,'  |_______|     /_//____/\_\   |_|','$',13,10
+
 .CODE
 squre1 proc
     
@@ -74,9 +83,9 @@ draw:
     mov cx, 100
     
     cmp dx, 40
-    jle draw
+    jle draw 
     
-        
+    
     
 pop ax
     
@@ -88,9 +97,32 @@ squre2 endp
 start:
 	mov ax, @data
     mov ds, ax 
-
+    lea dx,msg11
+    mov ah,09h
+    int 21h
+    lea dx,msg12
+    mov ah,09h
+    int 21h
+    lea dx,msg13
+    mov ah,09h
+    int 21h
+    lea dx,msg14
+    mov ah,09h
+    int 21h
+    lea dx,msg15
+    mov ah,09h
+    int 21h
 question:	
 	lea dx,msg1
+    mov ah,09h
+    int 21h
+    lea dx,msg2
+    mov ah,09h
+    int 21h
+    lea dx,msg3
+    mov ah,09h
+    int 21h
+    lea dx,msg4
     mov ah,09h
     int 21h
 	mov ah, 1
@@ -116,7 +148,14 @@ ukraine:
 	call squre1
 	
 	push 0Eh
-	call squre2
+	call squre2 
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
 	mov ah, 0   
 	mov al, 03h 
 	int 10h  
@@ -132,6 +171,14 @@ indonesia:
 	
 	push 0fh
 	call squre2
+	
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+    mov ah,00h
+    int 16h
+	
 	mov ah, 0   
 	mov al, 03h 
 	int 10h  
@@ -147,10 +194,27 @@ poland:
 	
 	push 0ch
 	call squre2
+	
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
 	mov ah, 0  
 	mov al, 03h 
 	int 10h  
 	jmp question
+
+
+
+ 
+   
+
+    
+
+    
 
 exit:
 		
