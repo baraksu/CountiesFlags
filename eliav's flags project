@@ -9,7 +9,10 @@ msg1 db 13,10,' 1 for ukraine','$',13,10
 msg2 db 13,10,' 2 for poland','$',13,10   
 msg3 db 13,10,' 3 indonesia','$',13,10  
 msg4 db 13,10,' 0 to exit','$',13,10
-msg5 db 13,10,10,10,10,10,10,10,10,10,10,' press any key to go to the main menu','$' 
+msg5 db 13,10,10,10,10,10,10,10,10,10,10,' press any key to go to the main menu','$'
+msg6 db 13,10,' 4 for italy','$',13,10
+msg7 db 13,10,' 5 for france','$',13,10
+msg8 db 13,10,' 6 for nigeria','$',13,10 
 
 msg11 db 13,10,'  ________ ___| |____ ____ _______ ','$',13,10
 msg12 db 13,10,' |.  ___  |_  |____  |__  |____   |','$',13,10
@@ -91,7 +94,124 @@ pop ax
     
 ret 2    
 squre2 endp
-  
+
+
+
+
+column1 proc
+    
+
+push ax ;+0
+
+    mov bp,sp 
+    
+    
+          
+    mov cx, 100
+    mov dx, 20
+    mov ax,[bp+4]
+    mov ah,0ch
+
+
+
+drawcolumn1:
+    int 10h
+
+    inc cx
+    
+    cmp cx, 110   
+    jle drawcolumn1
+    
+    inc dx
+    mov cx, 100
+    
+    cmp dx, 40
+    jle drawcolumn1
+    
+        
+    
+pop ax
+    
+ret 2   
+column1 endp
+
+
+
+column2 proc
+    
+
+push ax ;+0
+
+    mov bp,sp 
+    
+    
+          
+    mov cx, 111
+    mov dx, 20
+    mov ax,[bp+4]
+    mov ah,0ch
+
+
+
+drawcolumn2:
+    int 10h
+
+    inc cx
+    
+    cmp cx, 120   
+    jle drawcolumn2
+    
+    inc dx
+    mov cx, 111
+    
+    cmp dx, 40
+    jle drawcolumn2
+    
+        
+    
+pop ax
+    
+ret 2   
+column2 endp
+
+
+
+column3 proc
+    
+
+push ax ;+0
+
+    mov bp,sp 
+    
+    
+          
+    mov cx, 121
+    mov dx, 20
+    mov ax,[bp+4]
+    mov ah,0ch
+
+
+
+drawcolumn3:
+    int 10h
+
+    inc cx
+    
+    cmp cx, 130   
+    jle drawcolumn3
+    
+    inc dx
+    mov cx, 121
+    
+    cmp dx, 40
+    jle drawcolumn3
+    
+        
+    
+pop ax
+    
+ret 2   
+column3 endp
 
 
 start:
@@ -122,6 +242,15 @@ question:
     lea dx,msg3
     mov ah,09h
     int 21h
+    lea dx,msg6
+    mov ah,09h
+    int 21h
+    lea dx,msg7
+    mov ah,09h
+    int 21h
+    lea dx,msg8
+    mov ah,09h
+    int 21h
     lea dx,msg4
     mov ah,09h
     int 21h
@@ -133,6 +262,12 @@ question:
     je poland
     cmp al,'3'
     je indonesia
+    cmp al,'4'
+    je italy
+    cmp al,'5'
+    je france
+    cmp al,'6'
+    je nigeria
     cmp al,'0'
     je exit
     jmp question 
@@ -206,15 +341,84 @@ poland:
 	mov al, 03h 
 	int 10h  
 	jmp question
-
-
-
- 
-   
-
+italy:
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 02h 
+	call column1
+	
+	push 0fh
+	call column2
+	
+	push 0ch
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
     
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
 
+nigeria:
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 02h 
+	call column1
+	
+	push 0fh
+	call column2
+	
+	push 02h
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
     
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+
+
+france:
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 01h 
+	call column1
+	
+	push 0fh
+	call column2
+	
+	push 0ch
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
 
 exit:
 		
