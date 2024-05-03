@@ -7,12 +7,14 @@
 
 msg1 db 13,10,' 1 for ukraine','$',13,10 
 msg2 db 13,10,' 2 for poland','$',13,10   
-msg3 db 13,10,' 3 indonesia','$',13,10  
+msg3 db 13,10,' 3 for indonesia','$',13,10  
 msg4 db 13,10,' 0 to exit','$',13,10
 msg5 db 13,10,10,10,10,10,10,10,10,10,10,' press any key to go to the main menu','$'
 msg6 db 13,10,' 4 for italy','$',13,10
 msg7 db 13,10,' 5 for france','$',13,10
 msg8 db 13,10,' 6 for nigeria','$',13,10 
+msg9 db 13,10,' 7 for romania','$',13,10
+
 
 msg11 db 13,10,'  ________ ___| |____ ____ _______ ','$',13,10
 msg12 db 13,10,' |.  ___  |_  |____  |__  |____   |','$',13,10
@@ -232,7 +234,23 @@ start:
     lea dx,msg15
     mov ah,09h
     int 21h
-question:	
+question:
+    lea dx,msg11
+    mov ah,09h
+    int 21h
+    lea dx,msg12
+    mov ah,09h
+    int 21h
+    lea dx,msg13
+    mov ah,09h
+    int 21h
+    lea dx,msg14
+    mov ah,09h
+    int 21h
+    lea dx,msg15
+    mov ah,09h
+    int 21h
+    	
 	lea dx,msg1
     mov ah,09h
     int 21h
@@ -249,6 +267,9 @@ question:
     mov ah,09h
     int 21h
     lea dx,msg8
+    mov ah,09h
+    int 21h 
+    lea dx,msg9
     mov ah,09h
     int 21h
     lea dx,msg4
@@ -267,7 +288,9 @@ question:
     cmp al,'5'
     je france
     cmp al,'6'
-    je nigeria
+    je nigeria 
+    cmp al,'7'
+    je romania
     cmp al,'0'
     je exit
     jmp question 
@@ -419,7 +442,31 @@ france:
 	mov al, 03h 
 	int 10h  
 	jmp question
-
+romania:
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 01h 
+	call column1
+	
+	push 0eh
+	call column2
+	
+	push 0ch
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
 exit:
 		
 
