@@ -1,4 +1,4 @@
-
+  
 .MODEL small
 .STACK 100h
 
@@ -14,6 +14,7 @@ msg6 db 13,10,' 4 for italy','$',13,10
 msg7 db 13,10,' 5 for france','$',13,10
 msg8 db 13,10,' 6 for nigeria','$',13,10 
 msg9 db 13,10,' 7 for romania','$',13,10
+msg100 db 13,10,' by Eliav Schwartzman ','$',13,10
 
 
 msg11 db 13,10,'  ________ ___| |____ ____ _______ ','$',13,10
@@ -23,7 +24,192 @@ msg14 db 13,10,'  | |___| |      / /____| |    | | ','$',13,10
 msg15 db 13,10,'  |_______|     /_//____/\_\   |_|','$',13,10
 
 .CODE
-squre1 proc
+ukraineFlag proc 
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 9h 
+	call highrectangle
+	
+	push 0Eh
+	call lowrectangle 
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0   
+	mov al, 03h 
+	int 10h  
+	jmp question
+
+ukraineFlag endp 
+
+indonesiaFlag proc
+    mov ah, 0   
+	mov al, 13h
+	int 10h    
+	
+      
+	push 0ch 
+	call highrectangle
+	
+	push 0fh
+	call lowrectangle
+	
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+    mov ah,00h
+    int 16h
+	
+	mov ah, 0   
+	mov al, 03h 
+	int 10h  
+	jmp question
+indonesiaFlag endp 
+
+polandFlag proc
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 0fh 
+	call highrectangle
+	
+	push 0ch
+	call lowrectangle
+	
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+polandFlag endp
+
+italyFlag proc 
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 02h 
+	call column1
+	
+	push 0fh
+	call column2
+	
+	push 0ch
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+italyFlag endp
+ 
+nigeriaFlag proc
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 02h 
+	call column1
+	
+	push 0fh
+	call column2
+	
+	push 02h
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+nigeriaFlag endp 
+
+franceFlag proc
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 01h 
+	call column1
+	
+	push 0fh
+	call column2
+	
+	push 0ch
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+franceFlag endp
+
+romaniaFlag proc
+    mov ah, 0   
+	mov al, 13h 
+	int 10h     
+	
+      
+	push 01h 
+	call column1
+	
+	push 0eh
+	call column2
+	
+	push 0ch
+	call column3
+	
+	lea dx,msg5
+    mov ah,09h
+    int 21h
+	mov ah,00h
+    int 16h
+    
+	mov ah, 0  
+	mov al, 03h 
+	int 10h  
+	jmp question
+romaniaFlag endp
+
+; in: get one color
+; out: print a high rectangle 
+highrectangle proc
     
 
 push ax ;+0
@@ -39,28 +225,30 @@ push ax ;+0
 
 
 
-draw1:
+drawhighrectangle:
     int 10h
 
     inc cx
     
     cmp cx, 125   
-    jle draw1
+    jle drawhighrectangle
     
     inc dx
     mov cx, 100
     
     cmp dx, 30
-    jle draw1
+    jle drawhighrectangle
     
         
     
 pop ax
     
 ret 2   
-squre1 endp
+highrectangle endp
 
-squre2 proc
+; in: get one color
+; out: print a low rectangle
+lowrectangle proc
     
 
 push ax
@@ -76,30 +264,31 @@ push ax
 
 
 
-draw:
+drawlowrectangle:
     int 10h
 
     inc cx
     
     cmp cx, 125   
-    jle draw
+    jle drawlowrectangle
     
     inc dx
     mov cx, 100
     
     cmp dx, 40
-    jle draw 
+    jle drawlowrectangle 
     
     
     
 pop ax
     
 ret 2    
-squre2 endp
+lowrectangle endp
 
 
 
-
+; in: get one color
+; out: print a right column
 column1 proc
     
 
@@ -138,7 +327,8 @@ ret 2
 column1 endp
 
 
-
+; in: get one color
+; out: print a middle column
 column2 proc
     
 
@@ -177,7 +367,8 @@ ret 2
 column2 endp
 
 
-
+; in: get one color
+; out: print a left column
 column3 proc
     
 
@@ -219,6 +410,8 @@ column3 endp
 start:
 	mov ax, @data
     mov ds, ax 
+    
+
     lea dx,msg11
     mov ah,09h
     int 21h
@@ -234,20 +427,8 @@ start:
     lea dx,msg15
     mov ah,09h
     int 21h
-question:
-    lea dx,msg11
-    mov ah,09h
-    int 21h
-    lea dx,msg12
-    mov ah,09h
-    int 21h
-    lea dx,msg13
-    mov ah,09h
-    int 21h
-    lea dx,msg14
-    mov ah,09h
-    int 21h
-    lea dx,msg15
+    
+    lea dx,msg100
     mov ah,09h
     int 21h
     	
@@ -275,6 +456,8 @@ question:
     lea dx,msg4
     mov ah,09h
     int 21h
+question:
+    
 	mov ah, 1
     int 21h
     cmp al,'1'
@@ -297,176 +480,22 @@ question:
     
 	
 ukraine:
-    mov ah, 0   
-	mov al, 13h 
-	int 10h     
-	
-      
-	push 9h 
-	call squre1
-	
-	push 0Eh
-	call squre2 
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-	mov ah,00h
-    int 16h
-    
-	mov ah, 0   
-	mov al, 03h 
-	int 10h  
-	jmp question
+    call ukraineFlag
 indonesia:
-    mov ah, 0   
-	mov al, 13h
-	int 10h    
-	
-      
-	push 0ch 
-	call squre1
-	
-	push 0fh
-	call squre2
-	
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-    mov ah,00h
-    int 16h
-	
-	mov ah, 0   
-	mov al, 03h 
-	int 10h  
-	jmp question	
+    call indonesiaFlag	
 poland:
-    mov ah, 0   
-	mov al, 13h 
-	int 10h     
-	
-      
-	push 0fh 
-	call squre1
-	
-	push 0ch
-	call squre2
-	
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-	mov ah,00h
-    int 16h
-    
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
-	jmp question
+    call polandFlag
 italy:
-    mov ah, 0   
-	mov al, 13h 
-	int 10h     
-	
-      
-	push 02h 
-	call column1
-	
-	push 0fh
-	call column2
-	
-	push 0ch
-	call column3
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-	mov ah,00h
-    int 16h
-    
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
-	jmp question
+    call italyFlag
 
 nigeria:
-    mov ah, 0   
-	mov al, 13h 
-	int 10h     
-	
-      
-	push 02h 
-	call column1
-	
-	push 0fh
-	call column2
-	
-	push 02h
-	call column3
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-	mov ah,00h
-    int 16h
-    
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
-	jmp question
+    call nigeriaFlag
 
 
 france:
-    mov ah, 0   
-	mov al, 13h 
-	int 10h     
-	
-      
-	push 01h 
-	call column1
-	
-	push 0fh
-	call column2
-	
-	push 0ch
-	call column3
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-	mov ah,00h
-    int 16h
-    
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
-	jmp question
+    call franceFlag
 romania:
-    mov ah, 0   
-	mov al, 13h 
-	int 10h     
-	
-      
-	push 01h 
-	call column1
-	
-	push 0eh
-	call column2
-	
-	push 0ch
-	call column3
-	
-	lea dx,msg5
-    mov ah,09h
-    int 21h
-	mov ah,00h
-    int 16h
-    
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
-	jmp question
+    call romaniaFlag
 exit:
 		
 
