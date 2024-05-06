@@ -411,7 +411,7 @@ start:
 	mov ax, @data
     mov ds, ax 
     
-
+question:
     lea dx,msg11
     mov ah,09h
     int 21h
@@ -456,7 +456,7 @@ start:
     lea dx,msg4
     mov ah,09h
     int 21h
-question:
+
     
 	mov ah, 1
     int 21h
