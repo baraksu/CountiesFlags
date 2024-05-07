@@ -412,6 +412,10 @@ start:
     mov ds, ax 
     
 question:
+    mov ah, 0  
+	mov al, 03h 
+	int 10h
+    
     lea dx,msg11
     mov ah,09h
     int 21h
