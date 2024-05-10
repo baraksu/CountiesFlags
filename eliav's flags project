@@ -42,9 +42,7 @@ ukraineFlag proc
 	mov ah,00h
     int 16h
     
-	mov ah, 0   
-	mov al, 03h 
-	int 10h  
+	  
 	jmp question
 
 ukraineFlag endp 
@@ -68,9 +66,7 @@ indonesiaFlag proc
     mov ah,00h
     int 16h
 	
-	mov ah, 0   
-	mov al, 03h 
-	int 10h  
+	
 	jmp question
 indonesiaFlag endp 
 
@@ -93,9 +89,7 @@ polandFlag proc
 	mov ah,00h
     int 16h
     
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
+	  
 	jmp question
 polandFlag endp
 
@@ -120,9 +114,7 @@ italyFlag proc
 	mov ah,00h
     int 16h
     
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
+	  
 	jmp question
 italyFlag endp
  
@@ -147,9 +139,7 @@ nigeriaFlag proc
 	mov ah,00h
     int 16h
     
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
+	 
 	jmp question
 nigeriaFlag endp 
 
@@ -174,9 +164,7 @@ franceFlag proc
 	mov ah,00h
     int 16h
     
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
+	
 	jmp question
 franceFlag endp
 
@@ -201,9 +189,7 @@ romaniaFlag proc
 	mov ah,00h
     int 16h
     
-	mov ah, 0  
-	mov al, 03h 
-	int 10h  
+	
 	jmp question
 romaniaFlag endp
 
